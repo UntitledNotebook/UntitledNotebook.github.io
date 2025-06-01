@@ -30,35 +30,44 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0
-          # submodules: true
-          # If using the 'assets' git submodule from Chirpy Starter, uncomment above
-          # (See: https://github.com/cotes2020/chirpy-starter/tree/main/assets)
+          fetch-depth: 0 # Recommended for Jekyll sites for full history if needed by plugins like jekyll-last-modified-at
 
       - name: Setup Pages
         id: pages
         uses: actions/configure-pages@v4
+        # No specific configuration needed here for a user page deploying to root
 
       - name: Setup Ruby
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: 3.3
-          bundler-cache: true
+          ruby-version: 3.3 # As per your original workflow
+          bundler-cache: true # This will automatically run `bundle install`
+
+      - name: Show _config.yml content # DEBUGGING STEP
+        run: |
+          echo "Attempting to display _config.yml content from $GITHUB_WORKSPACE/_config.yml:"
+          cat _config.yml || echo "_config.yml not found at $GITHUB_WORKSPACE/_config.yml"
+          echo "-------------------------------------------------"
 
       - name: Build site
+        # The -d flag specifies the destination.
+        # For a user page (<username>.github.io), steps.pages.outputs.base_path will be empty or '/',
+        # so Jekyll builds to _site or _site/.
         run: bundle exec jekyll b -d "_site${{ steps.pages.outputs.base_path }}"
         env:
           JEKYLL_ENV: "production"
 
-      - name: Test site
+      - name: Test site # Optional: but good for catching broken links/images
         run: |
-          bundle exec htmlproofer _site \
-            \-\-disable-external \
-            \-\-ignore-urls "/^http:\/\/127.0.0.1/,/^http:\/\/0.0.0.0/,/^http:\/\/localhost/"
+          bundle exec htmlproofer "_site${{ steps.pages.outputs.base_path }}" \
+            --disable-external \
+            --ignore-urls "/^http:\/\/127.0.0.1/,/^http:\/\/0.0.0.0/,/^http:\/\/localhost/"
 
       - name: Upload site artifact
         uses: actions/upload-pages-artifact@v3
         with:
+          # Path to the directory Jekyll built the site into.
+          # This must match the -d argument in the 'Build site' step.
           path: "_site${{ steps.pages.outputs.base_path }}"
 
   deploy:
@@ -66,8 +75,10 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
-    needs: build
+    needs: build # Ensures the build job completes before deploying
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+        # This action takes the artifact uploaded by upload-pages-artifact
+        # and deploys it to GitHub Pages according to your repository's Pages settings.

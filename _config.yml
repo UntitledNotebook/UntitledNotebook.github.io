@@ -9,37 +9,35 @@ theme: jekyll-theme-chirpy
 lang: en
 
 # Change to your timezone › https://kevinnovak.github.io/Time-Zone-Picker
-timezone: Asia/Shanghai
+timezone: Asia/Shanghai # User's setting
 
 # jekyll-seo-tag settings › https://github.com/jekyll/jekyll-seo-tag/blob/master/docs/usage.md
 # ↓ --------------------------
 
-title: Untitled # the main title
-
-tagline: Hi there, welcome to my blog. # it will display as the subtitle
-
+title: Untitled # User's setting - this should appear as your site title
+tagline: Hi there, welcome to my blog. # User's setting - this should appear as your subtitle
 description: >- # used by seo meta and the atom feed
-  None.
+  None. # User's setting
 
 # Fill in the protocol & hostname for your site.
 # E.g. 'https://username.github.io', note that it does not end with a '/'.
-url: "https://UntitledNotebook.github.io"
+url: "https://UntitledNotebook.github.io" # User's setting - This is correct for your repo name
 
 github:
-  username: UntitledNotebook # change to your GitHub username
+  username: UntitledNotebook # User's setting - this should be used for GitHub links
 
 twitter:
-  username: f3f3x0 # change to your Twitter username
+  username: f3f3x0 # User's setting - this should be used for Twitter links
 
 social:
   # Change to your full name.
   # It will be displayed as the default author of the posts and the copyright owner in the Footer
-  name: Chenming Zhang
-  email: zhangchenming2006@gmail.com # change to your email address
+  name: Chenming Zhang # User's setting - this should appear in the footer
+  email: zhangchenming2006@gmail.com # User's setting - for contact options
   links:
     # The first element serves as the copyright owner's link
-    - https://twitter.com/f3f3x0 # change to your Twitter homepage
-    - https://github.com/UntitledNotebook # change to your GitHub homepage
+    - https://twitter.com/f3f3x0 # User's setting
+    - https://github.com/UntitledNotebook # User's setting
     # Uncomment below to add more social links
     # - https://www.facebook.com/username
     # - https://www.linkedin.com/in/username
@@ -98,6 +96,9 @@ theme_mode: # [light | dark]
 cdn:
 
 # the avatar on sidebar, support local or CORS resources
+# IMPORTANT: This currently points to the theme's sample avatar.
+# If you have your own avatar (e.g., 'assets/img/my_custom_avatar.png'),
+# change this path to point to your image file.
 avatar: 'assets/img/sample/avatar.png'
 
 # The URL of the site-wide social preview image used in SEO `og:image` meta tag.
@@ -150,7 +151,7 @@ pwa:
 paginate: 10
 
 # The base URL of your site
-baseurl: ""
+baseurl: "" # Correct for a user site like <username>.github.io
 
 # ------------ The following options are not recommended to be modified ------------------
 
