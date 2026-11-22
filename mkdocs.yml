@@ -34,8 +34,13 @@ plugins:
   - blog
 
 markdown_extensions:
+  - admonition
   - pymdownx.arithmatex:
       generic: true
+  - pymdownx.details
+  - pymdownx.highlight:
+      pygments_lang_class: true
+  - pymdownx.superfences
 
 extra_css:
   - stylesheets/extra.css
@@ -54,3 +59,4 @@ nav:
           - Part 1:
               - notes/nlp/part-1/index.md
               - Context-free grammars: notes/nlp/part-1/context-free-grammars.md
+              - Hidden Markov models: notes/nlp/part-1/hidden-markov-models.md
