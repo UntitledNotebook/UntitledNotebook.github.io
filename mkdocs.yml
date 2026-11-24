@@ -59,4 +59,5 @@ nav:
           - Part 1:
               - notes/nlp/part-1/index.md
               - Context-free grammars: notes/nlp/part-1/context-free-grammars.md
+              - Latent semantic analysis: notes/nlp/part-1/latent-semantic-analysis.md
               - Hidden Markov models: notes/nlp/part-1/hidden-markov-models.md

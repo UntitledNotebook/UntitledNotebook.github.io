@@ -20,9 +20,9 @@ This is the perspective we take in classical NLP. We start with observable patte
 ## Reading order
 
 1. Learn production rules, parse trees, and CKY parsing in [Context-free grammars](context-free-grammars.md).
-2. **Latent semantic analysis** uses term-document matrices and singular value decomposition to represent words and documents.
+2. [Latent semantic analysis](latent-semantic-analysis.md) uses term-document matrices and singular value decomposition to represent words and documents.
 3. [Gaussian mixture models and expectation-maximization](hidden-markov-models.md#the-expectation-maximization-algorithm) introduce learning with hidden variables.
-4. [Hidden Markov models](hidden-markov-models.md#model-definition) support inference and learning for sequence tasks such as part-of-speech tagging.
+4. [Hidden Markov models](hidden-markov-models.md#hidden-markov-models_1) support inference and learning for sequence tasks such as part-of-speech tagging.
 5. **N-gram language models** estimate token probabilities from a short context.
 6. **Word2vec** learns embeddings by predicting a word from its context or by predicting context words from a target word.
 7. **Directed graphical models** generalize the conditional independence ideas introduced by HMMs.
