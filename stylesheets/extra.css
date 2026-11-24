@@ -1,0 +1,13 @@
+.md-grid {
+  max-width: 80rem;
+}
+
+.md-typeset figure {
+  text-align: center;
+}
+
+@media screen and (max-width: 89.984375em) {
+  .md-sidebar--secondary:not([hidden]) {
+    display: none;
+  }
+}

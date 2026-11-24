@@ -1,0 +1,1397 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://untitlednotebook.github.io/notes/nlp/part-1/context-free-grammars/">
+      
+      
+        <link rel="prev" href="../">
+      
+      
+        <link rel="next" href="../latent-semantic-analysis/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.8.2">
+    
+    
+      
+        <title>Context-free grammars - Untitled Notebook</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../assets/stylesheets/main.57a0d79d.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#context-free-grammars" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../../.." title="Untitled Notebook" class="md-header__button md-logo" aria-label="Untitled Notebook" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Untitled Notebook
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Context-free grammars
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../../blog/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Blog
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../../" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Notes
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../.." title="Untitled Notebook" class="md-nav__button md-logo" aria-label="Untitled Notebook" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Untitled Notebook
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../blog/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Blog
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Notes
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Notes
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    NLP
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_2" id="__nav_3_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    NLP
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2_2" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 1
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_2_2" id="__nav_3_2_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_2_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Part 1
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Context-free grammars
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Context-free grammars
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#productions-and-derivations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Productions and derivations
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Examples
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Examples">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#arithmetic-expressions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Arithmetic expressions
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#a-non-context-free-language" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A non-context-free language
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#converting-a-regular-expression-to-a-cfg" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Converting a regular expression to a CFG
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#a-cfg-with-no-equivalent-regular-expression" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A CFG with no equivalent regular expression
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#a-small-english-grammar" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A small English grammar
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#chomsky-normal-form" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chomsky normal form
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Chomsky normal form">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#converting-a-rule-to-cnf" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Converting a rule to CNF
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#parsing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Parsing
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#synchronous-context-free-grammars" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Synchronous context-free grammars
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Synchronous context-free grammars">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#englishjapanese-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        English–Japanese example
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#references" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        References
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="References">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#course-materials" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Course materials
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#wikipedia" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Wikipedia
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../latent-semantic-analysis/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Latent semantic analysis
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../hidden-markov-models/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hidden Markov models
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#productions-and-derivations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Productions and derivations
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Examples
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Examples">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#arithmetic-expressions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Arithmetic expressions
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#a-non-context-free-language" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A non-context-free language
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#converting-a-regular-expression-to-a-cfg" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Converting a regular expression to a CFG
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#a-cfg-with-no-equivalent-regular-expression" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A CFG with no equivalent regular expression
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#a-small-english-grammar" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A small English grammar
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#chomsky-normal-form" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chomsky normal form
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Chomsky normal form">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#converting-a-rule-to-cnf" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Converting a rule to CNF
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#parsing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Parsing
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#synchronous-context-free-grammars" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Synchronous context-free grammars
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Synchronous context-free grammars">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#englishjapanese-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        English–Japanese example
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#references" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        References
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="References">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#course-materials" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Course materials
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#wikipedia" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Wikipedia
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="context-free-grammars">Context-free grammars</h1>
+<p>Modern LLM user neural networks to do "blackbox" generation, while CFG can give you "whitebox" generation, etc., through a parse tree.</p>
+<h2 id="productions-and-derivations">Productions and derivations</h2>
+<p>A <strong>context-free grammar (CFG)</strong> is a tuple <span class="arithmatex">\(G = (N, \Sigma, P, S)\)</span> where</p>
+<ul>
+<li><span class="arithmatex">\(N\)</span> is a finite set of <strong>nonterminals</strong>, the symbols that rules can rewrite.</li>
+<li><span class="arithmatex">\(\Sigma\)</span> is a finite set of <strong>terminals</strong>, the symbols that make up the generated strings. The sets <span class="arithmatex">\(N\)</span> and <span class="arithmatex">\(\Sigma\)</span> are disjoint.</li>
+<li><span class="arithmatex">\(P \subseteq N \times (N \cup \Sigma)^*\)</span> is a finite set of <strong>productions</strong>. We write <span class="arithmatex">\((A, \alpha) \in P\)</span> as <span class="arithmatex">\(A \rightarrow \alpha\)</span>. The right-hand side <span class="arithmatex">\(\alpha\)</span> can be the empty string <span class="arithmatex">\(\epsilon\)</span>.</li>
+<li><span class="arithmatex">\(S \in N\)</span> is the <strong>start symbol</strong>.</li>
+</ul>
+<p>For each production <span class="arithmatex">\(A \rightarrow \alpha\)</span> and any surrounding strings <span class="arithmatex">\(u, v \in (N \cup \Sigma)^*\)</span>, the grammar permits the rewrite</p>
+<div class="arithmatex">\[
+uAv \Rightarrow_G u\alpha v.
+\]</div>
+<p>The grammar is <strong>context-free</strong> because the rule can rewrite <span class="arithmatex">\(A\)</span> regardless of its context <span class="arithmatex">\(u\)</span> and <span class="arithmatex">\(v\)</span>. The arrow <span class="arithmatex">\(\rightarrow\)</span> specifies a production, <span class="arithmatex">\(\Rightarrow_G\)</span> denotes one rewrite step, and <span class="arithmatex">\(\Rightarrow_G^*\)</span> denotes zero or more steps.</p>
+<p>The <strong>language generated by</strong> <span class="arithmatex">\(G\)</span> is</p>
+<div class="arithmatex">\[
+\mathcal{L}(G) = \{w \in \Sigma^* \mid S \Rightarrow_G^* w\}.
+\]</div>
+<p>A language <span class="arithmatex">\(L\)</span> is <strong>context-free</strong> if <span class="arithmatex">\(L = \mathcal{L}(G)\)</span> for some CFG <span class="arithmatex">\(G\)</span>.</p>
+<h2 id="examples">Examples</h2>
+<h3 id="arithmetic-expressions">Arithmetic expressions</h3>
+<p>Let <span class="arithmatex">\(E\)</span> be the start symbol and <span class="arithmatex">\(N = \{E, \mathrm{Op}\}\)</span>. The terminal set is</p>
+<div class="arithmatex">\[
+\Sigma = \{\mathtt{int}, \mathtt{+}, \mathtt{*}, \mathtt{-}, \mathtt{/}, \mathtt{(}, \mathtt{)}\},
+\]</div>
+<p>where <span class="arithmatex">\(\mathtt{int}\)</span> is a single terminal token. The productions are</p>
+<div class="arithmatex">\[
+\begin{aligned}
+E &amp;\rightarrow E\,\mathrm{Op}\,E \mid \mathtt{int} \mid \mathtt{(}E\mathtt{)}, \\
+\mathrm{Op} &amp;\rightarrow \mathtt{+} \mid \mathtt{*} \mid \mathtt{-} \mid \mathtt{/}.
+\end{aligned}
+\]</div>
+<p>Each step in the following derivation rewrites one occurrence of a nonterminal.</p>
+<div class="arithmatex">\[
+\begin{aligned}
+&amp; E \\
+\Rightarrow_G\;&amp; E\,\mathrm{Op}\,E \\
+\Rightarrow_G\;&amp; E\,\mathrm{Op}\,\mathtt{(}E\mathtt{)} \\
+\Rightarrow_G\;&amp; E\,\mathrm{Op}\,\mathtt{(}E\,\mathrm{Op}\,E\mathtt{)} \\
+\Rightarrow_G\;&amp; E\mathtt{*(}E\,\mathrm{Op}\,E\mathtt{)} \\
+\Rightarrow_G\;&amp; \mathtt{int*(}E\,\mathrm{Op}\,E\mathtt{)} \\
+\Rightarrow_G\;&amp; \mathtt{int*(int}\,\mathrm{Op}\,E\mathtt{)} \\
+\Rightarrow_G\;&amp; \mathtt{int*(int}\,\mathrm{Op}\,\mathtt{int)} \\
+\Rightarrow_G\;&amp; \mathtt{int*(int+int)}.
+\end{aligned}
+\]</div>
+<p>The final string contains only terminals, so <span class="arithmatex">\(\mathtt{int*(int+int)} \in \mathcal{L}(G)\)</span>.</p>
+<h3 id="a-non-context-free-language">A non-context-free language</h3>
+<p>Let <span class="arithmatex">\(L = \{a^n b^n c^n \mid n \ge 1\}\)</span>. The three blocks occur in order and have the same length. No CFG generates <span class="arithmatex">\(L\)</span>. See <a href="https://en.wikipedia.org/wiki/Pumping_lemma_for_context-free_languages#Usage_of_the_lemma">Wikipedia’s pumping-lemma proof</a>.</p>
+<p>A grammar <span class="arithmatex">\(H\)</span> that generates <span class="arithmatex">\(L\)</span> has start symbol <span class="arithmatex">\(S\)</span>. Its nonterminals are <span class="arithmatex">\(\{S, B, C\}\)</span> and its terminals are <span class="arithmatex">\(\{a, b, c\}\)</span>. The productions are</p>
+<div class="arithmatex">\[
+\begin{alignedat}{2}
+S &amp;\rightarrow aSBC \mid aBC, \\
+CB &amp;\rightarrow BC, \\
+aB &amp;\rightarrow ab, &amp; \quad bB &amp;\rightarrow bb, \\
+bC &amp;\rightarrow bc, &amp; \quad cC &amp;\rightarrow cc.
+\end{alignedat}
+\]</div>
+<p>The rule <span class="arithmatex">\(CB \rightarrow BC\)</span> can apply only when <span class="arithmatex">\(C\)</span> is immediately followed by <span class="arithmatex">\(B\)</span>. This violates the CFG definition, which requires a single nonterminal on the left-hand side of each production.</p>
+<h3 id="converting-a-regular-expression-to-a-cfg">Converting a regular expression to a CFG</h3>
+<p>The regular expression <code>ab*[cde]</code> matches strings of the form <span class="arithmatex">\(ab^k t\)</span> for <span class="arithmatex">\(k \ge 0\)</span> and <span class="arithmatex">\(t \in \{c, d, e\}\)</span>. An equivalent CFG has start symbol <span class="arithmatex">\(S\)</span> and productions</p>
+<div class="arithmatex">\[
+S \rightarrow aBC, \allowbreak\quad
+B \rightarrow bB \mid \epsilon, \allowbreak\quad
+C \rightarrow c \mid d \mid e.
+\]</div>
+<h3 id="a-cfg-with-no-equivalent-regular-expression">A CFG with no equivalent regular expression</h3>
+<p>The CFG with start symbol <span class="arithmatex">\(S\)</span> and productions</p>
+<div class="arithmatex">\[
+S \rightarrow aSb \mid ab
+\]</div>
+<p>generates <span class="arithmatex">\(L = \{a^n b^n \mid n \ge 1\}\)</span>.</p>
+<p>The language <span class="arithmatex">\(L\)</span> is nonregular, so no formal regular expression describes it. The pumping-lemma argument works for both <span class="arithmatex">\(n \ge 0\)</span> and <span class="arithmatex">\(n \ge 1\)</span>. See <a href="https://en.wikipedia.org/wiki/Pumping_lemma_for_regular_languages#Use_of_the_lemma_to_prove_non-regularity">Wikipedia’s worked example</a>.</p>
+<h3 id="a-small-english-grammar">A small English grammar</h3>
+<p>The following productions describe a fragment of English called <span class="arithmatex">\(L_0\)</span>. The categories <span class="arithmatex">\(\mathrm{NP}\)</span>, <span class="arithmatex">\(\mathrm{VP}\)</span>, and <span class="arithmatex">\(\mathrm{PP}\)</span> denote noun phrases, verb phrases, and prepositional phrases. In the rules and the tree below, <span class="arithmatex">\(\mathrm{Pro}\)</span> stands for pronoun, <span class="arithmatex">\(\mathrm{Det}\)</span> for determiner, and <span class="arithmatex">\(\mathrm{Nom}\)</span> for nominal.</p>
+<div class="arithmatex">\[
+\begin{aligned}
+S &amp;\rightarrow \mathrm{NP}\,\mathrm{VP}, \\
+\mathrm{NP} &amp;\rightarrow \mathrm{Pro}
+    \mid \text{Proper-Noun} \goodbreak \mid \mathrm{Det}\,\mathrm{Nom}, \\
+\mathrm{Nom} &amp;\rightarrow \mathrm{Nom}\,\mathrm{Noun}
+    \mid \mathrm{Noun}, \\
+\mathrm{VP} &amp;\rightarrow \mathrm{Verb}
+    \mid \mathrm{Verb}\,\mathrm{NP} \goodbreak \mid \mathrm{Verb}\,\mathrm{NP}\,\mathrm{PP}, \\
+\mathrm{PP} &amp;\rightarrow \mathrm{Preposition}\,\mathrm{NP}.
+\end{aligned}
+\]</div>
+<p>The parse tree for “I prefer a morning flight” shows how the words form a noun phrase and a verb phrase.</p>
+<figure>
+  <img src="../assets/nlp-slide-71-parse-tree.svg" alt="Parse tree for “I prefer a morning flight”">
+</figure>
+
+<p>The grammar captures phrase structure and can also license implausible combinations. For example, <span class="arithmatex">\(\mathrm{VP} \rightarrow \mathrm{Verb}\,\mathrm{NP}\)</span> allows both “prefer a flight” and “write a flight” if both verbs have the same lexical category.</p>
+<h2 id="chomsky-normal-form">Chomsky normal form</h2>
+<p>A CFG <span class="arithmatex">\(G = (N, \Sigma, P, S)\)</span> is in <strong>Chomsky normal form (CNF)</strong> if its productions have one of two forms.</p>
+<div class="arithmatex">\[
+\begin{alignedat}{2}
+A &amp;\rightarrow BC, &amp; \quad &amp;A,B,C \in N, \\
+A &amp;\rightarrow a, &amp; \quad &amp;A \in N,\ a \in \Sigma.
+\end{alignedat}
+\]</div>
+<p>With these rules, every generated string is nonempty, so <span class="arithmatex">\(\mathcal{L}(G) \subseteq \Sigma^+\)</span>. For any CFG <span class="arithmatex">\(G\)</span>, there is a grammar in this form that generates <span class="arithmatex">\(\mathcal{L}(G) \setminus \{\epsilon\}\)</span>. To preserve <span class="arithmatex">\(\epsilon\)</span> when it belongs to the language, the extended form also allows <span class="arithmatex">\(S \rightarrow \epsilon\)</span>, provided <span class="arithmatex">\(S\)</span> never appears on a right-hand side.</p>
+<h3 id="converting-a-rule-to-cnf">Converting a rule to CNF</h3>
+<p>CFG:</p>
+<div class="arithmatex">\[
+A \rightarrow BCD.
+\]</div>
+<p>CNF:</p>
+<div class="arithmatex">\[
+A \rightarrow BX, \qquad X \rightarrow CD.
+\]</div>
+<h2 id="parsing">Parsing</h2>
+<p><strong>Syntactic parsing</strong> finds the parse trees a grammar assigns to a sentence. The <strong>Cocke–Kasami–Younger (CKY)</strong> algorithm uses dynamic programming to combine shorter spans into longer ones.</p>
+<p>First convert the grammar to CNF. For a nonempty input <span class="arithmatex">\(w_1 \cdots w_n\)</span>, let <span class="arithmatex">\(T[i,j]\)</span> store the nonterminals <span class="arithmatex">\(A \in N\)</span> that derive the span <span class="arithmatex">\((i,j]\)</span>, where <span class="arithmatex">\(0 \le i &lt; j \le n\)</span>.</p>
+<div class="arithmatex">\[
+T[i,j] = \{A \mid A \Rightarrow_G^* w_{i+1}\cdots w_j\}.
+\]</div>
+<p>Fill the one-token spans <span class="arithmatex">\(T[i, i+1]\)</span> using terminal productions. For each longer span, try every split point <span class="arithmatex">\(k\)</span> and use binary productions to combine the two subspans.</p>
+<div class="arithmatex">\[
+\begin{array}{@{}l@{}}
+T[i,j] \gets \varnothing \quad (0 \le i &lt; j \le n) \\
+\mathbf{for}\ j \gets 1\ \mathbf{to}\ n\ \mathbf{do} \\
+\enspace T[j-1,j] \gets \{A \mid (A \rightarrow w_j) \in P\} \\
+\enspace \mathbf{for}\ i \gets j-2\ \mathbf{downto}\ 0\ \mathbf{do} \\
+\quad \mathbf{for}\ k \gets i+1\ \mathbf{to}\ j-1\ \mathbf{do} \\
+\quad\enspace \textbf{for each}\ (A \rightarrow BC) \in P \\
+\qquad \mathbf{if}\ B \in T[i,k] \land C \in T[k,j] \\
+\qquad\enspace T[i,j] \gets T[i,j] \cup \{A\} \\
+\mathbf{return}\ T
+\end{array}
+\]</div>
+<p>The input belongs to <span class="arithmatex">\(\mathcal{L}(G)\)</span> exactly when <span class="arithmatex">\(S \in T[0,n]\)</span>. To recover parse trees, also record the productions and split points that added each nonterminal to the chart.</p>
+<p>A sentence can have multiple parses. In “I shot an elephant in my pajamas,” the phrase “in my pajamas” can attach to the noun phrase “an elephant” or to the verb phrase “shot an elephant.” A <strong>probabilistic context-free grammar (PCFG)</strong> assigns probabilities to productions, which can be estimated from annotated data. A parse tree's probability is the product of the probabilities of its productions, so a parser can rank competing trees.</p>
+<h2 id="synchronous-context-free-grammars">Synchronous context-free grammars</h2>
+<p>A <strong>synchronous context-free grammar (S-CFG)</strong> with a shared nonterminal set is a tuple</p>
+<div class="arithmatex">\[
+G = (N, \Sigma_{\mathrm{src}}, \Sigma_{\mathrm{tgt}}, P, S).
+\]</div>
+<p>Here <span class="arithmatex">\(N\)</span> is a finite set of nonterminals, <span class="arithmatex">\(\Sigma_{\mathrm{src}}\)</span> and <span class="arithmatex">\(\Sigma_{\mathrm{tgt}}\)</span> are finite source and target terminal alphabets disjoint from <span class="arithmatex">\(N\)</span>, <span class="arithmatex">\(S \in N\)</span> is the start symbol, and <span class="arithmatex">\(P\)</span> is a finite set of productions.</p>
+<p>For a string <span class="arithmatex">\(\gamma\)</span>, let <span class="arithmatex">\(I_N(\gamma)\)</span> be its set of nonterminal positions.</p>
+<div class="arithmatex">\[
+I_N(\gamma) = \{i \mid 1 \le i \le |\gamma|,\ \gamma_i \in N\}.
+\]</div>
+<p>A production has the form <span class="arithmatex">\(A \rightarrow \langle \alpha, \beta, \pi \rangle\)</span>, where <span class="arithmatex">\(A \in N\)</span> and the two strings are drawn from their respective alphabets.</p>
+<div class="arithmatex">\[
+\alpha \in (N \cup \Sigma_{\mathrm{src}})^*, \allowbreak\quad
+\beta \in (N \cup \Sigma_{\mathrm{tgt}})^*.
+\]</div>
+<p>The bijection <span class="arithmatex">\(\pi \colon I_N(\alpha) \to I_N(\beta)\)</span> links occurrences of the same nonterminal, so <span class="arithmatex">\(\alpha_i = \beta_{\pi(i)}\)</span> for every <span class="arithmatex">\(i \in I_N(\alpha)\)</span>. Matching subscripts mark linked occurrences.</p>
+<p>A rewrite applies one production to both occurrences of a linked nonterminal <span class="arithmatex">\(A_k\)</span>.</p>
+<div class="arithmatex">\[
+\langle u A_k v,\ u' A_k v' \rangle
+\Rightarrow_G
+\langle u\widetilde{\alpha}v,\ u'\widetilde{\beta}v' \rangle,
+\]</div>
+<p>where <span class="arithmatex">\(\widetilde{\alpha}\)</span> and <span class="arithmatex">\(\widetilde{\beta}\)</span> are <span class="arithmatex">\(\alpha\)</span> and <span class="arithmatex">\(\beta\)</span> with a fresh shared subscript for each pair <span class="arithmatex">\((i, \pi(i))\)</span>. The grammar generates the relation</p>
+<div class="arithmatex">\[
+\mathcal{L}(G) = \bigl\{(x,y) \in \Sigma_{\mathrm{src}}^* \times \Sigma_{\mathrm{tgt}}^*
+\bigm| \allowbreak \langle S_0,S_0\rangle \Rightarrow_G^* \langle x,y\rangle\bigr\}.
+\]</div>
+<h3 id="englishjapanese-example">English–Japanese example</h3>
+<p>The first component of each pair is English, and the second is romanized Japanese.</p>
+<div class="arithmatex">\[
+\begin{aligned}
+S &amp;\rightarrow \langle \mathrm{NP}_1\,\mathrm{VP}_2,\ \mathrm{NP}_1\,\mathrm{VP}_2\rangle, \\
+\mathrm{VP} &amp;\rightarrow \langle \mathrm{V}_1\,\mathrm{NP}_2,\ \mathrm{NP}_2\,\mathrm{V}_1\rangle, \\
+\mathrm{NP} &amp;\rightarrow \langle \text{I},\ \text{watashi wa}\rangle
+    \goodbreak \mid \langle \text{the box},\ \text{hako wo}\rangle, \\
+\mathrm{V} &amp;\rightarrow \langle \text{open},\ \text{akemasu}\rangle.
+\end{aligned}
+\]</div>
+<p>The <span class="arithmatex">\(\mathrm{VP}\)</span> rule places the object after the verb in English and before it in Japanese.</p>
+<div class="arithmatex">\[
+\begin{aligned}
+&amp;\langle S_0,S_0\rangle \\
+\Rightarrow_G\;&amp;\langle \mathrm{NP}_1\,\mathrm{VP}_2,\ \mathrm{NP}_1\,\mathrm{VP}_2\rangle \\
+\Rightarrow_G\;&amp;\langle \text{I}\ \mathrm{VP}_2,\ \text{watashi wa}\ \mathrm{VP}_2\rangle \\
+\Rightarrow_G\;&amp;\begin{indentalign}[0em]{l}
+    \langle \text{I}\ \mathrm{V}_3\,\mathrm{NP}_4,
+    \goodbreak\ \text{watashi~wa}\ \mathrm{NP}_4\,\mathrm{V}_3\rangle
+    \end{indentalign} \\
+\Rightarrow_G\;&amp;\begin{indentalign}[0em]{l}
+    \langle \text{I open}\ \mathrm{NP}_4,
+    \goodbreak\ \text{watashi~wa}\ \mathrm{NP}_4\ \text{akemasu}\rangle
+    \end{indentalign} \\
+\Rightarrow_G\;&amp;\begin{indentalign}[0em]{l}
+    \langle \text{I open the box},
+    \goodbreak\ \text{watashi~wa hako~wo akemasu}\rangle.
+    \end{indentalign}
+\end{aligned}
+\]</div>
+<h2 id="references">References</h2>
+<h3 id="course-materials">Course materials</h3>
+<ul>
+<li>Tianxing He. <em>Natural Language Processing, Part I</em>.</li>
+<li>Daniel Jurafsky and James H. Martin. <em>Speech and Language Processing</em>, third-edition draft. <a href="https://web.stanford.edu/~jurafsky/slp3/old_dec21/12.pdf">Constituency Grammars</a> and <a href="https://web.stanford.edu/~jurafsky/slp3/old_dec21/13.pdf">Constituency Parsing</a>.</li>
+<li>Jacob Andreas and James Glass. <a href="https://www.mit.edu/~jda/teaching/6.864/sp20/">Advanced Natural Language Processing (MIT 6.806/6.864) lecture slides</a>.</li>
+<li>Yulia Tsvetkov. University of Washington CSE 447. <a href="https://courses.cs.washington.edu/courses/cse447/22au/assets/slides/lec-21.pdf">Syntactic Parsing lecture slides</a>.</li>
+<li>Zhilin Yang. <em>Natural Language Processing</em> lecture slides, Tsinghua University.</li>
+<li>Stanford CS336. <a href="https://github.com/stanford-cs336/lectures">Language Modeling from Scratch lecture materials</a>.</li>
+</ul>
+<h3 id="wikipedia">Wikipedia</h3>
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/Context-free_grammar#Formal_definitions">Context-free grammar (formal definitions)</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Chomsky_normal_form">Chomsky normal form</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Pumping_lemma_for_regular_languages#Formal_statement">Pumping lemma for regular languages (formal statement)</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Pumping_lemma_for_context-free_languages#Formal_statement">Pumping lemma for context-free languages (formal statement)</a></li>
+<li><a href="https://en.wikipedia.org/wiki/CYK_algorithm">Cocke–Younger–Kasami algorithm (CKY)</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Probabilistic_context-free_grammar">Probabilistic context-free grammar</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Synchronous_context-free_grammar">Synchronous context-free grammar</a></li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../../..", "features": ["content.action.edit", "content.action.view", "content.code.annotate", "content.code.copy", "content.tooltips", "navigation.indexes", "navigation.tabs", "navigation.top", "navigation.tracking", "search.highlight", "search.share", "search.suggest", "toc.follow"], "search": "../../../../assets/javascripts/workers/search.a7633da7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../../assets/javascripts/bundle.a5f9d56c.min.js"></script>
+      
+        <script src="../../../../javascripts/mathjax.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@4.1.3/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>
